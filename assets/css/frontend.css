@@ -1,0 +1,807 @@
+/* ============================================================
+   Programm-Pusher – Frontend CSS
+   Vollständiges Web-App-Design
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0f1117;
+  --bg-card:   #1a1d27;
+  --bg-input:  #12141e;
+  --border:    #2d3148;
+  --border-focus: #6c63ff;
+  --accent:    #6c63ff;
+  --accent-h:  #8b85ff;
+  --success:   #2ecc71;
+  --warning:   #f39c12;
+  --danger:    #e74c3c;
+  --text:      #e8e9f0;
+  --text-muted:#8b8fa8;
+  --text-label:#b0b3c8;
+  --header-h:  58px;
+  --nav-w:     200px;
+  --radius:    8px;
+  --shadow:    0 2px 12px rgba(0,0,0,.4);
+}
+
+html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body.pp-app { background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ============================================================
+   Views
+   ============================================================ */
+.pp-view { display: none; }
+.pp-view.pp-view-active { display: flex; flex-direction: column; min-height: 100vh; }
+#pp-view-login.pp-view-active { justify-content: center; align-items: center; }
+#pp-view-dashboard.pp-view-active { display: flex; flex-direction: column; }
+#pp-view-project.pp-view-active { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+/* ============================================================
+   Login
+   ============================================================ */
+.pp-login-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow);
+}
+.pp-login-logo { font-size: 48px; text-align: center; margin-bottom: 12px; }
+.pp-login-title { font-size: 24px; font-weight: 700; text-align: center; color: var(--text); }
+.pp-login-sub { color: var(--text-muted); text-align: center; margin-bottom: 32px; font-size: 13px; }
+.pp-login-form { display: flex; flex-direction: column; gap: 16px; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.pp-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 8px 18px; border-radius: var(--radius);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  border: none; transition: all .15s; text-decoration: none; white-space: nowrap;
+}
+.pp-btn-primary  { background: var(--accent); color: #fff; }
+.pp-btn-primary:hover { background: var(--accent-h); }
+.pp-btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.pp-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.pp-btn-ghost    { background: transparent; color: var(--text-muted); }
+.pp-btn-ghost:hover { color: var(--text); }
+.pp-btn-danger   { background: var(--danger); color: #fff; }
+.pp-btn-full     { width: 100%; }
+.pp-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ============================================================
+   Forms (generisch)
+   ============================================================ */
+.pp-form-group { display: flex; flex-direction: column; gap: 6px; }
+.pp-form-group label { font-size: 12px; font-weight: 600; color: var(--text-label); text-transform: uppercase; letter-spacing: .04em; }
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color .15s;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(108,99,255,.15);
+}
+select { cursor: pointer; }
+textarea { resize: vertical; line-height: 1.5; }
+.pp-error { background: rgba(231,76,60,.15); border: 1px solid var(--danger); border-radius: var(--radius); padding: 10px 14px; color: #ff8a80; font-size: 13px; }
+
+/* ============================================================
+   Header
+   ============================================================ */
+.pp-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  height: var(--header-h);
+  flex-shrink: 0;
+  z-index: 100;
+}
+.pp-header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 100%; padding: 0 20px; gap: 16px;
+}
+.pp-header-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.pp-header-actions { display: flex; align-items: center; gap: 8px; }
+.pp-back-btn { font-size: 13px; }
+
+/* ============================================================
+   Dashboard
+   ============================================================ */
+.pp-main { flex: 1; overflow-y: auto; padding: 32px 20px; }
+.pp-container { max-width: 900px; margin: 0 auto; }
+.pp-section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+.pp-projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.pp-project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color .15s, transform .1s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.pp-project-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.pp-project-card-title { font-size: 15px; font-weight: 600; }
+.pp-project-card-date { font-size: 12px; color: var(--text-muted); }
+.pp-project-card-actions { display: flex; gap: 6px; margin-top: 8px; }
+.pp-empty { text-align: center; color: var(--text-muted); padding: 60px 20px; font-size: 15px; }
+.pp-loading { color: var(--text-muted); padding: 40px; text-align: center; }
+
+/* ============================================================
+   Projekt-Layout
+   ============================================================ */
+.pp-project-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.pp-sidenav {
+  width: var(--nav-w);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 16px 0;
+}
+.pp-sidenav ul { list-style: none; }
+.pp-nav-link {
+  display: block;
+  padding: 10px 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: color .15s, background .15s;
+  border-left: 3px solid transparent;
+}
+.pp-nav-link:hover { color: var(--text); background: rgba(108,99,255,.08); }
+.pp-nav-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(108,99,255,.1); }
+.pp-nav-prompt { color: var(--accent) !important; font-weight: 700; }
+
+.pp-project-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 48px;
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   Blöcke / Felder
+   ============================================================ */
+.pp-block {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pp-block:last-child { border-bottom: none; }
+.pp-block-title {
+  font-size: 17px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 10px; border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+.pp-fields { display: flex; flex-wrap: wrap; gap: 16px; }
+.pp-field { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.pp-field-half { width: calc(50% - 8px); }
+.pp-field-row { flex-direction: row; align-items: center; gap: 16px; }
+.pp-field > label, .pp-field-row > label {
+  font-size: 12px; font-weight: 600; color: var(--text-label);
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.req { color: var(--accent); }
+.pp-hint { font-size: 12px; color: var(--text-muted); margin-top: -2px; }
+.pp-custom-field { margin-top: 8px; }
+
+/* Checkboxen */
+.pp-checkgroup { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 8px 0 4px; }
+.pp-check {
+  display: flex; align-items: center; gap: 6px;
+  cursor: pointer; font-size: 13px; color: var(--text);
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: 20px; padding: 4px 10px;
+  transition: border-color .15s, background .15s;
+}
+.pp-check:hover { border-color: var(--accent); }
+.pp-check input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--accent); }
+.pp-check.pp-checked { background: rgba(108,99,255,.15); border-color: var(--accent); color: var(--accent-h); }
+
+/* Radio */
+.pp-radio-group { display: flex; gap: 16px; }
+.pp-radio { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+.pp-radio input { accent-color: var(--accent); }
+
+/* ============================================================
+   Repeatable Fields
+   ============================================================ */
+.pp-repeatable { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.pp-rep-item {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.pp-rep-item:hover { border-color: #3d4160; }
+.pp-rep-handle { color: var(--text-muted); cursor: grab; font-size: 18px; padding-top: 2px; flex-shrink: 0; user-select: none; }
+.pp-rep-handle:active { cursor: grabbing; }
+.pp-rep-fields { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.pp-rep-field { display: flex; flex-direction: column; gap: 4px; }
+.pp-rep-field label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+.pp-rep-field input, .pp-rep-field select, .pp-rep-field textarea { font-size: 13px; }
+.pp-rep-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.pp-rep-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 4px; width: 28px; height: 28px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.pp-rep-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pp-rep-btn-del:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ============================================================
+   Prompt-Ausgabe
+   ============================================================ */
+.pp-block-prompt { background: rgba(108,99,255,.04); border-radius: var(--radius); padding: 24px; margin-top: 8px; }
+.pp-prompt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+.pp-prompt-msg { font-size: 13px; margin-left: 4px; }
+.pp-prompt-msg.success { color: var(--success); }
+.pp-prompt-msg.error   { color: var(--danger); }
+.pp-prompt-textarea {
+  width: 100%;
+  min-height: 520px;
+  background: #0a0c13;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: #c8d0e8;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 16px;
+  resize: vertical;
+}
+
+/* ============================================================
+   Save-Status
+   ============================================================ */
+.pp-save-status {
+  position: sticky; top: 0; z-index: 50;
+  padding: 10px 16px; font-size: 13px; font-weight: 600;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.pp-save-status.success { background: rgba(46,204,113,.15); color: var(--success); border: 1px solid rgba(46,204,113,.3); }
+.pp-save-status.error   { background: rgba(231,76,60,.22); color: #fff; border: 1px solid var(--danger);
+                          font-size: 14px; padding: 12px 18px; letter-spacing: .01em; }
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #444770; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 768px) {
+  .pp-sidenav { display: none; }
+  .pp-field-half { width: 100%; }
+  .pp-login-box { padding: 32px 24px; margin: 20px; }
+  .pp-project-main { padding: 0 14px 40px; }
+}
+
+/* ============================================================
+   Logo
+   ============================================================ */
+
+.pp-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pp-logo-img {
+  display: block;
+  object-fit: contain;
+  object-position: left center;
+  max-width: 160px;
+  flex-shrink: 0;
+}
+
+.pp-logo-header {
+  max-height: 38px;
+}
+
+.pp-login-logo-img {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.pp-logo-login {
+  max-height: 72px;
+  max-width: 220px;
+}
+
+/* ============================================================
+   Help Button
+   ============================================================ */
+
+.pp-help-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-color: var(--border) !important;
+}
+
+.pp-help-btn:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+
+/* ============================================================
+   Help Overlay
+   ============================================================ */
+
+.pp-help-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .65);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.pp-help-panel {
+  width: 100%;
+  max-width: 820px;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  animation: pp-slide-in .22s ease;
+}
+
+@keyframes pp-slide-in {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.pp-help-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+
+.pp-help-header-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pp-help-close {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+
+.pp-help-close:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.pp-help-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.pp-help-nav {
+  width: 200px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+  padding: 12px 0;
+}
+
+.pp-help-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pp-help-nav li {
+  margin: 0;
+}
+
+.pp-hn {
+  display: block;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background .12s, color .12s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pp-hn:hover {
+  background: rgba(108, 99, 255, .12);
+  color: var(--text);
+}
+
+.pp-hn.active {
+  border-left-color: var(--accent);
+  color: var(--accent);
+  background: rgba(108, 99, 255, .1);
+  font-weight: 600;
+}
+
+.pp-help-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+}
+
+.pp-hs {
+  display: none;
+}
+
+.pp-hs.active {
+  display: block;
+}
+
+.pp-hs h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pp-hs p {
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0 0 16px;
+}
+
+.pp-help-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pp-help-list li {
+  padding-left: 14px;
+  border-left: 2px solid var(--border);
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.pp-help-list li strong {
+  color: var(--text);
+}
+
+.pp-help-list li .pp-help-list {
+  margin-top: 6px;
+}
+
+.pp-help-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.pp-help-step-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pp-help-step-text {
+  flex: 1;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.pp-help-step-text strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.pp-help-tip {
+  background: rgba(108, 99, 255, .12);
+  border: 1px solid rgba(108, 99, 255, .3);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 16px;
+}
+
+.pp-help-tip strong {
+  color: var(--accent);
+}
+
+/* Responsive: schmale Bildschirme */
+@media (max-width: 600px) {
+  .pp-help-panel {
+    max-width: 100%;
+  }
+  .pp-help-nav {
+    display: none;
+  }
+  .pp-help-content {
+    padding: 20px;
+  }
+}
+
+/* ============================================================
+   Projektkarten – Drei-Punkte-Menü
+   ============================================================ */
+
+/* Karten brauchen position:relative für das Menü */
+.pp-project-card {
+  position: relative;
+}
+
+/* Drei-Punkte-Button oben rechts */
+.pp-card-menu-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .12s, border-color .12s, color .12s;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.pp-card-menu-btn:hover,
+.pp-card-menu-btn.active {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* Dropdown-Menü */
+.pp-card-dropdown {
+  position: absolute;
+  top: 44px;
+  right: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  min-width: 170px;
+  z-index: 200;
+  overflow: hidden;
+  animation: pp-dropdown-in .12s ease;
+}
+
+@keyframes pp-dropdown-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pp-card-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 13.5px;
+  cursor: pointer;
+  text-align: left;
+  transition: background .1s;
+}
+
+.pp-card-dropdown button:hover {
+  background: rgba(255,255,255,.06);
+}
+
+.pp-card-dropdown button.pp-dd-delete {
+  color: #f87171;
+  border-top: 1px solid var(--border);
+}
+
+.pp-card-dropdown button.pp-dd-delete:hover {
+  background: rgba(248,113,113,.1);
+}
+
+.pp-card-dropdown .pp-dd-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 2px 0;
+}
+
+/* ---- Inline-Rename ---- */
+.pp-card-rename-wrap {
+  padding: 10px 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.pp-card-rename-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  color: var(--text);
+  font-size: 13px;
+  padding: 5px 8px;
+  outline: none;
+}
+
+.pp-card-rename-input:focus {
+  box-shadow: 0 0 0 2px rgba(108,99,255,.25);
+}
+
+.pp-card-rename-ok,
+.pp-card-rename-cancel {
+  padding: 4px 9px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.pp-card-rename-ok {
+  background: var(--accent);
+  color: #fff;
+}
+
+.pp-card-rename-cancel {
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ---- Inline-Lösch-Bestätigung ---- */
+.pp-card-confirm-delete {
+  padding: 10px 14px;
+  background: rgba(248,113,113,.08);
+  border-top: 1px solid var(--border);
+}
+
+.pp-card-confirm-delete p {
+  color: #f87171;
+  font-size: 12.5px;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.pp-card-confirm-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pp-card-confirm-yes {
+  flex: 1;
+  padding: 5px 0;
+  border-radius: 5px;
+  background: #c02b0a;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pp-card-confirm-yes:hover { background: #a82508; }
+
+.pp-card-confirm-no {
+  flex: 1;
+  padding: 5px 0;
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   APP-LADESCREEN
+   ============================================================ */
+.pp-app-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.pp-app-loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pp-app-loader-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: pp-spin 0.7s linear infinite;
+}
+@keyframes pp-spin {
+  to { transform: rotate(360deg); }
+}
